@@ -46,7 +46,7 @@ Hint 2: typing in just the coordinates (not the location) is also acceptable (bu
 ### Technology
 Feel free to use whatever languages, web technologies and databases you feel comfortable with. But please keep in mind that we are testing multiple candidates and cannot spend much time setting up environments. If your code is something other than Node.js or PHP and MySQL or PostgreSQL, please provide a link where we can test your solution or supply a Docker image.
 
-# 2. Technical Questions
+## 2. Technical Questions
 - How much time did you spend working on your solution?
 - What could you do to improve it if you had more time?
 - How could you make your code run faster? What if there were a million records in the UNESCO database? Have you ever had to deal with such issues?
