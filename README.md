@@ -8,6 +8,7 @@ The test consists of two parts:
 
 - The assignment (coding test)
 - Technical questions
+
 Deliverables:
 
 - CT-Assets-Backend-{name surname}.ZIP (code and database export)
@@ -19,6 +20,7 @@ You will be working with three public datasets:
 - List of UNESCO World Heritage Sites (XML)
 - A list of first names (TXT)
 - A list of last names (TXT)
+
 If you're having trouble downloading these files, they are all available in this Git repository and at their sources:
 
 UNESCO World Heritage sites http://whc.unesco.org/en/list/xml/
