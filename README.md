@@ -1,4 +1,4 @@
-<img width="100%" src="lib/banner.jpg"/>
+<img width="100%" src="https://github.com/miharajster/greco.si_Recruitment_Test/blob/main/lib/banner.jpg"/>
 
 # Backend Engineer Recruitment Test
 
