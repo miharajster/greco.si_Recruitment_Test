@@ -57,3 +57,20 @@ Feel free to use whatever languages, web technologies and databases you feel com
 We'll get back to you as soon as possible!
 ___
 This page was directly inspired by https://github.com/justeat/JustEat.RecruitmentTest.
+
+# Developer notes
+<img width="100%" src="https://github.com/miharajster/greco.si_Recruitment_Test/blob/main/lib/screenshot.png"/>
+App can be tested (here)[https://ads.legion.si/].<br/>
+You can rebuild data by clicking (here)[https://ads.legion.si/api.php?action=build].
+
+## Technologies used
+I have used PHP 5.3+ (wanted to use 7+, but it failed on my server), Vite and Vue.
+
+## Deployment
+It is best to build a project and then deploy it to the server. You can do that by running npm install in a root folder and then npm build.
+
+Copy /dist folder to your server of choice. Don't forget to put api.php in the same folder and make shore to allow sqlite base tobe written.
+
+Lastly, copy your Google Maps Key in code.
+
+Have fun!
