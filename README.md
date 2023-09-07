@@ -69,7 +69,7 @@ I have used PHP 5.3+ (wanted to use 7+, but it failed on my server), Vite and Vu
 ## Deployment
 It is best to build a project and then deploy it to the server. You can do that by running npm install in a root folder and then npm build.
 
-Copy /dist folder to your server of choice. Don't forget to put api.php in the same folder and make shore to allow sqlite base tobe written.
+Copy /dist and /import folder to your server of choice. Don't forget to put api.php in the same folder and make shure to allow sqlite base tobe written.
 
 Lastly, copy your Google Maps Key in code.
 
