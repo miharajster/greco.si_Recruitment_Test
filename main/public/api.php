@@ -178,7 +178,7 @@ switch ($get) {
     case 'get_near':
         if(!empty($_GET['lat']) && !empty($_GET['lon'])) {
             $get = new Build();
-            $out = $get->processDistance($_GET['lat'], $_GET['lon']);
+            $out = $get->processDistance(floatval($_GET['lat']), floatval($_GET['lon']));
         } else {
             $out['error'] = 'No latitude and longitude provided';
         }
