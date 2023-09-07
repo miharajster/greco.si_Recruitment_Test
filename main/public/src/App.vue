@@ -14,7 +14,7 @@
       <div class="agent_info">
         <div class="agent_info--name">{{ agent.first_name }} {{ agent.last_name }}</div>
         <div class="agent_info--location">Lat: {{ agent.latitude }}<br/>Lng: {{ agent.longitude }}</div>
-        <div class="agent_info--distance">Distance: {{ agent.distance }} km</div>
+        <div class="agent_info--distance">Distance: {{ agent.distance.toFixed(2) }} km</div>
         <div class="agent_info--deploy">
           <span class="btn">Deploy</span>
         </div>
