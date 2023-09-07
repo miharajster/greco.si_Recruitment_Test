@@ -2,28 +2,16 @@
   <div id="logo">
       <img src="./assets/logo.jpg" class="logo" alt="Agent Deployment System" />
   </div>
-  <div id="search">
-    <input type="text" id="address" placeholder="Enter desired location..." v-model="address" v-on:keyup.enter="translateAddress">
-    <span class="go" @click="translateAddress">Search</span>
-  </div>
+  <Search @changeInput="changeLocation" @clickEvent=""/>
   <div id="output" v-if="data.data">
-    <div class="agent" v-for="(agent,index) in data.data.result.slice(0, 5)">
-      <div class="agent_avatar">
-        {{ agent.id }}
-      </div>
-      <div class="agent_info">
-        <div class="agent_info--name">{{ agent.first_name }} {{ agent.last_name }}</div>
-        <div class="agent_info--location">Lat: {{ agent.latitude }}<br/>Lng: {{ agent.longitude }}</div>
-        <div class="agent_info--distance">Distance: {{ agent.distance.toFixed(2) }} km</div>
-        <div class="agent_info--deploy">
-          <span class="btn">Deploy</span>
-        </div>
-      </div>
-    </div>
+    <Agent :data="data" />
   </div>
 </template>
 
 <script>
+import Search from './components/Search.vue';
+import Agent from './components/Agent.vue';
+
 import { Loader } from '@googlemaps/js-api-loader';
 import axios from 'axios'
 
@@ -52,7 +40,6 @@ export default {
 
             axios
                 .get('api.php?action=get_near&lat='+this.coordinates.lat+'&lon='+this.coordinates.lng)
-                // .get('http://localhost:80/index.php?action=get_near&lat='+this.coordinates.lat+'&lon='+this.coordinates.lng)
                 .then((response) => {
                   this.data = response
                 })
@@ -67,6 +54,12 @@ export default {
         console.error(error);
       }
     },
+    changeLocation(event){
+      this.address = event;
+    },
   },
+  components: {
+    Search, Agent,
+  }
 };
 </script>
