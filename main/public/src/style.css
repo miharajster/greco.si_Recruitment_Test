@@ -107,7 +107,7 @@ body {
   padding-bottom: 5px;
 }
 
-#output .agent .agent_info .agent_info--deploy .btn {
+.btn {
   display: inline-block;
   border-radius: 5px;
   background-color: #FFF;
