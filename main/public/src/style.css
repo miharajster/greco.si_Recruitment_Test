@@ -58,7 +58,7 @@ body {
   display: grid;
   grid-template-columns: 140px auto;
   grid-column-gap: 20px;
-  width: 100%;
+  width: calc(100% - 2rem);
   max-width: 400px;
   margin: 0 auto;
   background-color: #98703f;
