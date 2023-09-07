@@ -3,9 +3,7 @@
       <img src="./assets/logo.jpg" class="logo" alt="Agent Deployment System" />
   </div>
   <Search @changeInput="changeLocation" @clickEvent=""/>
-  <div id="output" v-if="data.data">
-    <Agent :data="data" />
-  </div>
+  <Agent :passData="data"  v-if="data.data"/>
 </template>
 
 <script>
