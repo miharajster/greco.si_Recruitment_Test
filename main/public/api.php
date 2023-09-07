@@ -1,11 +1,12 @@
 <?php
 namespace App;
+
 // CONF
 class Config {
-    const xml           = './import/unesco.xml';
-    const first_name    = './import/first-names.txt';
-    const last_name     = './import/last-names.txt';
-    const db            = '../../identifier.sqlite';
+    const XML_FILE = './import/unesco.xml';
+    const FIRST_NAME_FILE = './import/first-names.txt';
+    const LAST_NAME_FILE = './import/last-names.txt';
+    const DB_FILE = '../../identifier.sqlite';
 }
 
 // let's see if there's anything that user want from us
@@ -16,56 +17,28 @@ if(isset($_GET['action'])) {
 
 class SQL {
     private $pdo;
-    public function connect() {
-        if ($this->pdo == null) {
-            $this->pdo = new \PDO("sqlite:" . Config::db);
-        }
-        return $this->pdo;
+
+    public function __construct() {
+        $this->pdo = new \PDO("sqlite:" . Config::DB_FILE);
     }
 
+    // function rebuilds sqlite database with new random data
     public function rewrite($data) {
-        $pdo = (new SQL())->connect();
-        if ($pdo != null) {
-            // Connected to the SQLite database successfully!
+        // Clear database
+        $this->pdo->exec('DELETE FROM agents');
 
-            // Clear database
-            $sql = 'DELETE FROM agents WHERE 1=1';
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-
-            foreach($data as $agent){
-                $sql = 'INSERT INTO agents(id,first_name,last_name,latitude,longitude) '.
-                       'VALUES(:id,:first_name,:last_name,:latitude,:longitude)';
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([
-                    ':id'           => $agent['id'],
-                    ':first_name'   => $agent['name'],
-                    ':last_name'    => $agent['surname'],
-                    ':latitude'     => $agent['location']['lat'],
-                    ':longitude'    => $agent['location']['long'],
-                ]);
-            }
-        } else {
-            die('Whoops, could not connect to the SQLite database!');
+        // Prepare SQL statement
+        $stmt = $this->pdo->prepare('INSERT INTO agents (id, first_name, last_name, latitude, longitude) VALUES (?, ?, ?, ?, ?)');
+        foreach ($data as $agent) {
+            // Insert everything into the database
+            $stmt->execute([$agent['id'], $agent['name'], $agent['surname'], $agent['location']['lat'], $agent['location']['long']]);
         }
-        $this->pdo = NULL;
     }
 
+    // Get everything from the database
     public function getAll() {
-        $pdo = (new SQL())->connect();
-        if ($pdo != null) {
-            // Connected to the SQLite database successfully!
-            $sql = 'SELECT * FROM agents ORDER BY id ASC';
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-
-            return $stmt->fetchAll();
-
-            die();
-        } else {
-            die('Whoops, could not connect to the SQLite database!');
-        }
-        $this->pdo = NULL;
+        $stmt = $this->pdo->query('SELECT * FROM agents ORDER BY id ASC');
+        return $stmt->fetchAll();
     }
 }
 
@@ -73,29 +46,31 @@ class Build {
     private $agents = [];
     private $out = [];
 
+    // Build our data
     public function buildData() {
-        $xml_file = file_get_contents(Config::xml);
-        $xml = simplexml_load_string($xml_file, "SimpleXMLElement", LIBXML_NOCDATA);
+        // Load an XML with coordinates and ids
+        $xml = simplexml_load_file(Config::XML_FILE);
 
-        $fn_file = file_get_contents(Config::first_name);
-        $fn = preg_split("/\\r\\n|\\r|\\n/", $fn_file);
+        // Load two text files for names and surnames
+        $fn = file(Config::FIRST_NAME_FILE, FILE_IGNORE_NEW_LINES);
+        $ln = file(Config::LAST_NAME_FILE, FILE_IGNORE_NEW_LINES);
 
-        $ln_file = file_get_contents(Config::last_name);
-        $ln = preg_split("/\\r\\n|\\r|\\n/", $ln_file);
-
-        for ($i = 0; $i < sizeof($xml); $i++) {
+        // Populate agents
+        foreach ($xml->row as $i => $row) {
             $this->agents[$i]['id'] = $i;
-            $this->agents[$i]['name'] = $fn[rand(0, sizeof($fn) - 1)];
-            $this->agents[$i]['surname'] = $ln[rand(0, sizeof($ln) - 1)];
+            $this->agents[$i]['name'] = $fn[array_rand($fn)];
+            $this->agents[$i]['surname'] = $ln[array_rand($ln)];
             $this->agents[$i]['location'] = [
-                'lat' => $xml->row[$i]->latitude->__toString(),
-                'long' => $xml->row[$i]->longitude->__toString()
+                'lat' => $row->latitude->__toString(),
+                'long' => $row->longitude->__toString()
             ];
         }
 
+        // Rewrite database with our new data
         $sql = new SQL();
         $sql->rewrite($this->agents);
 
+        // API output
         $this->out['error'] = '';
         $this->out['sql']['connected'] = true;
         $this->out['sql']['rebuild'] = true;
@@ -104,19 +79,19 @@ class Build {
         return $this->out;
     }
 
+    // Build API and calculate distance
     public function processDistance($lat, $lon) {
-        $this->out['error'] = '';
-        $this->out['sql']['connected'] = true;
-        $this->out['sql']['rebuild'] = false;
-
+        // Get all of our data from database
         $sql = new SQL();
         $sql_agents = $sql->getAll();
 
+        // If our database is empty - rebuild it
         if(sizeof($sql_agents) == 0) {
             $build = new Build();
             $build->buildData();
         }
 
+        // Build our API results output
         foreach($sql_agents as $agent) {
             $this->out['result'][$agent['id']]['id'] = $agent['id'];
             $this->out['result'][$agent['id']]['first_name'] = $agent['first_name'];
@@ -130,6 +105,7 @@ class Build {
 
 //        usort($this->out['result'], fn($a, $b) => $a['distance'] <=> $b['distance']);
 
+        // Sort our results based on distance
         usort($this->out['result'], function($a, $b) {
             if ($a['distance'] > $b['distance']) {
                 return 1;
@@ -139,9 +115,15 @@ class Build {
             return 0;
         });
 
+        // API output
+        $this->out['error'] = '';
+        $this->out['sql']['connected'] = true;
+        $this->out['sql']['rebuild'] = false;
+
         return $this->out;
     }
 
+    // Return agents
     public function getAgents() {
         return $this->agents;
     }
@@ -150,6 +132,7 @@ class Build {
 class GeoCalculator {
     private $earthRadius = 6371; // Radius of the Earth in kilometers
 
+    // Calculation of distance between two different points on a map
     public function calculateDistance($lat1, $lon1, $lat2, $lon2) {
         // Convert degrees to radians
         $lat1 = deg2rad(floatval($lat1));
