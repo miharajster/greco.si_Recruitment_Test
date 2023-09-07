@@ -77,12 +77,26 @@ body {
   border-radius: 0 0 10px 10px;
 }
 #app #output .agent .agent_avatar {
+  position: relative;
   background-color: #30262e;
   border-radius: 50%;
   height: 140px;
   width: 140px;
   font-size: 45px;
+  font-weight: 800;
   line-height: 3;
+  background-size: cover;
+}
+#app #output .agent .agent_avatar span {
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  width: 135px;
+  height: 135px;
+  background-color: rgba(0, 0, 0, 0.3019607843);
+  border: 5px solid #fff;
 }
 #app #output .agent .agent_info {
   text-align: left;

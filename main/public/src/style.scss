@@ -85,12 +85,26 @@ body {
       }
 
       .agent_avatar {
+        position: relative;
         background-color: #30262e;
         border-radius: 50%;
         height: 140px;
         width: 140px;
         font-size: 45px;
+        font-weight: 800;
         line-height: 3;
+        background-size: cover;
+        span {
+          position: absolute;
+          display: inline-block;
+          top: 0;
+          left: 0;
+          border-radius: 50%;
+          width: 135px;
+          height: 135px;
+          background-color: #0000004d;
+          border: 5px solid #fff;
+        }
       }
 
       .agent_info {

@@ -1,8 +1,8 @@
 <template>
   <div id="output">
     <div class="agent" v-for="agent in passData.data.result.slice(0, 5)">
-      <div class="agent_avatar">
-        {{ agent.id }}
+      <div class="agent_avatar" :style="{ backgroundImage: 'url(https://loremflickr.com/280/280?lock='+agent.id+')' }">
+        <span>#{{ agent.id }}</span>
       </div>
       <div class="agent_info">
         <div class="agent_info--name">{{ agent.first_name }} {{ agent.last_name }}</div>
