@@ -56,7 +56,7 @@ class Build {
         $ln = file(Config::LAST_NAME_FILE, FILE_IGNORE_NEW_LINES);
 
         for ($i = 0; $i < sizeof($xml); $i++) {
-            $this->agents[$i]['id'] = $i;
+            $this->agents[$i]['id'] = $xml->row[$i]->unique_number->__toString();
             $this->agents[$i]['name'] = $fn[array_rand($fn)];
             $this->agents[$i]['surname'] = $ln[array_rand($ln)];
             $this->agents[$i]['location'] = [
