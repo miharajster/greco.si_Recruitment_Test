@@ -3,7 +3,7 @@
       <img src="./assets/logo.jpg" class="logo" alt="Agent Deployment System" />
   </div>
   <div id="search">
-    <input type="text" id="address" placeholder="Enter desired location..." v-model="address">
+    <input type="text" id="address" placeholder="Enter desired location..." v-model="address" v-on:keyup.enter="translateAddress">
     <span class="go" @click="translateAddress">Search</span>
   </div>
   <div id="output" v-if="data.data">
