@@ -49,3 +49,68 @@ body {
   color: #fff;
   font-weight: 600;
 }
+
+#output {
+  margin: 30px auto 40px;
+}
+
+#output .agent {
+  display: grid;
+  grid-template-columns: 140px auto;
+  grid-column-gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #98703f;
+  color: #fff;
+  padding: 15px;
+  border-bottom: 1px solid #624525;
+}
+
+#output .agent:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+#output .agent:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
+#output .agent .agent_avatar {
+  background-color: #30262e;
+  border-radius: 50%;
+  height: 140px;
+  width: 140px;
+  font-size: 45px;
+  line-height: 3;
+}
+
+#output .agent .agent_info {
+  text-align: left;
+  line-height: 1.6;
+}
+
+#output .agent .agent_info .agent_info--name {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#output .agent .agent_info .agent_info--location,
+#output .agent .agent_info .agent_info--distance {
+  font-size: 14px;
+}
+
+#output .agent .agent_info .agent_info--deploy {
+  text-align: right;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+#output .agent .agent_info .agent_info--deploy .btn {
+  display: inline-block;
+  border-radius: 5px;
+  background-color: #FFF;
+  color: #98703f;
+  font-weight: 600;
+  padding: 8px 15px;
+  cursor: pointer;
+}

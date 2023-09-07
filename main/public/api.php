@@ -128,7 +128,16 @@ class Build {
             $this->out['result'][$agent['id']]['distance'] = $distance->calculateDistance($agent['latitude'], $agent['longitude'], $lat, $lon);
         }
 
-        usort($this->out['result'], fn($a, $b) => $a['distance'] <=> $b['distance']);
+//        usort($this->out['result'], fn($a, $b) => $a['distance'] <=> $b['distance']);
+
+        usort($this->out['result'], function($a, $b) {
+            if ($a['distance'] > $b['distance']) {
+                return 1;
+            } elseif ($a['distance'] < $b['distance']) {
+                return -1;
+            }
+            return 0;
+        });
 
         return $this->out;
     }

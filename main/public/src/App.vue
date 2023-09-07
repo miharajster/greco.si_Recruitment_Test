@@ -6,15 +6,26 @@
     <input type="text" id="address" placeholder="Enter desired location..." v-model="address">
     <span class="go" @click="translateAddress">Search</span>
   </div>
-  <div id="output">
-    <p>Data: {{ data }}</p>
+  <div id="output" v-if="data.data">
+    <div class="agent" v-for="(agent,index) in data.data.result.slice(0, 5)">
+      <div class="agent_avatar">
+        {{ agent.id }}
+      </div>
+      <div class="agent_info">
+        <div class="agent_info--name">{{ agent.first_name }} {{ agent.last_name }}</div>
+        <div class="agent_info--location">Lat: {{ agent.latitude }}<br/>Lng: {{ agent.latitude }}</div>
+        <div class="agent_info--distance">Distance: {{ agent.distance }} km</div>
+        <div class="agent_info--deploy">
+          <span class="btn">Deploy</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { Loader } from '@googlemaps/js-api-loader';
 import axios from 'axios'
-import VueAxios from 'vue-axios'
 
 export default {
   data() {
@@ -38,9 +49,6 @@ export default {
           if (status === "OK" && results.length > 0) {
             this.coordinates = results[0].geometry.location.toJSON();
             this.error = null;
-
-            console.log(this.coordinates.lat)
-            console.log(this.coordinates.lng)
 
             axios
                 .get('api.php?action=get_near&lat='+this.coordinates.lat+'&lon='+this.coordinates.lng)
