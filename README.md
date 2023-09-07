@@ -60,8 +60,8 @@ This page was directly inspired by https://github.com/justeat/JustEat.Recruitmen
 
 # Developer notes
 <img width="100%" src="https://github.com/miharajster/greco.si_Recruitment_Test/blob/main/lib/screenshot.png"/>
-App can be tested [here](https://ads.legion.si/).<br/>
-You can rebuild data by clicking [here](https://ads.legion.si/api.php?action=build).
+App can be tested here: https://ads.legion.si/.<br/>
+You can rebuild data by clicking here: https://ads.legion.si/api.php?action=build.
 
 ## Technologies used
 I have used PHP 5.3+ (wanted to use 7+, but it failed on my server), Vite and Vue.
