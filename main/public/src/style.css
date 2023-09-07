@@ -40,14 +40,16 @@ body {
 }
 
 #search .go {
+  display: inline-block;
   cursor: pointer;
   position: relative;
   top: 2px;
   background-color: #98703f;
-  padding: 9px 15px;
+  padding: 8px 15px 7px;
   border-radius: 0 5px 5px 0;
   color: #fff;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 #output {
