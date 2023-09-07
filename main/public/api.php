@@ -55,14 +55,13 @@ class Build {
         $fn = file(Config::FIRST_NAME_FILE, FILE_IGNORE_NEW_LINES);
         $ln = file(Config::LAST_NAME_FILE, FILE_IGNORE_NEW_LINES);
 
-        // Populate agents
-        foreach ($xml->row as $i => $row) {
+        for ($i = 0; $i < sizeof($xml); $i++) {
             $this->agents[$i]['id'] = $i;
             $this->agents[$i]['name'] = $fn[array_rand($fn)];
             $this->agents[$i]['surname'] = $ln[array_rand($ln)];
             $this->agents[$i]['location'] = [
-                'lat' => $row->latitude->__toString(),
-                'long' => $row->longitude->__toString()
+                'lat' => $xml->row[$i]->latitude->__toString(),
+                'long' => $xml->row[$i]->longitude->__toString()
             ];
         }
 
