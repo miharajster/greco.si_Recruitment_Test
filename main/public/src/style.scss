@@ -1,0 +1,118 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1a1a1a;
+  background-color: #fefefe;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#app {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  max-width: 1280px;
+
+  .btn {
+    display: inline-block;
+    border-radius: 5px;
+    background-color: #FFF;
+    color: #98703f;
+    font-weight: 600;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+
+  #logo .logo {
+    max-width: 600px;
+    width: 100%;
+  }
+
+  #search {
+    input {
+      max-width: 450px;
+      width: calc(100% - 120px);
+      padding: 10px 15px;
+      border: 2px solid #98703f;
+      border-radius: 5px 0 0 5px;
+      outline: #f4f3e3;
+    }
+
+    .go {
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+      top: 2px;
+      background-color: #98703f;
+      padding: 8px 15px 7px;
+      border-radius: 0 5px 5px 0;
+      color: #fff;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  }
+
+  #output {
+    margin: 30px auto 40px;
+
+    .agent {
+      display: grid;
+      grid-template-columns: 140px auto;
+      grid-column-gap: 20px;
+      width: calc(100% - 2rem);
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #98703f;
+      color: #fff;
+      padding: 15px;
+      border-bottom: 1px solid #624525;
+
+      &:first-child {
+        border-radius: 10px 10px 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 10px 10px;
+      }
+
+      .agent_avatar {
+        background-color: #30262e;
+        border-radius: 50%;
+        height: 140px;
+        width: 140px;
+        font-size: 45px;
+        line-height: 3;
+      }
+
+      .agent_info {
+        text-align: left;
+        line-height: 1.6;
+
+        .agent_info--name {
+          font-weight: 600;
+          font-size: 20px;
+        }
+
+        .agent_info--location,
+        .agent_info--distance {
+          font-size: 14px;
+        }
+
+        .agent_info--deploy {
+          text-align: right;
+          padding-top: 10px;
+          padding-bottom: 5px;
+        }
+      }
+    }
+  }
+}
