@@ -1,6 +1,8 @@
 <template>
   <div id="logo">
-      <img src="./assets/logo.jpg" class="logo" alt="Agent Deployment System" />
+    <a href="/">
+      <img src="./assets/logo.jpg" class="logo" alt="Agent Deployment System"/>
+    </a>
   </div>
   <Search @changeInput="changeLocation" @clickEvent=""/>
   <Agent :passData="data" v-if="data.data"/>

@@ -30,8 +30,12 @@ body {
   font-weight: 600;
   padding: 8px 15px;
   cursor: pointer;
+  user-select: none;
 }
-#app #logo .logo {
+#app #logo a {
+  border: none;
+}
+#app #logo a .logo {
   max-width: 600px;
   width: 100%;
 }
@@ -54,6 +58,7 @@ body {
   color: #fff;
   font-weight: 600;
   line-height: 1.5;
+  user-select: none;
 }
 #app #output {
   margin: 30px auto 40px;
